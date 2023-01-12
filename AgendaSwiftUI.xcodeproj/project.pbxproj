@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		53E8BA1A296E115C00CB0272 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E8BA19296E115C00CB0272 /* LoginView.swift */; };
+		53E8BA5829708E2D00CB0272 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E8BA5729708E2D00CB0272 /* RegisterView.swift */; };
 		D12BF410296E10F30063EB93 /* AgendaSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12BF40F296E10F30063EB93 /* AgendaSwiftUIApp.swift */; };
 		D12BF414296E10F60063EB93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D12BF413296E10F60063EB93 /* Assets.xcassets */; };
 		D12BF417296E10F60063EB93 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D12BF416296E10F60063EB93 /* Preview Assets.xcassets */; };
@@ -15,6 +16,7 @@
 
 /* Begin PBXFileReference section */
 		53E8BA19296E115C00CB0272 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		53E8BA5729708E2D00CB0272 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		D12BF40C296E10F30063EB93 /* AgendaSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgendaSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D12BF40F296E10F30063EB93 /* AgendaSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaSwiftUIApp.swift; sourceTree = "<group>"; };
 		D12BF413296E10F60063EB93 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			children = (
 				D12BF40F296E10F30063EB93 /* AgendaSwiftUIApp.swift */,
 				53E8BA19296E115C00CB0272 /* LoginView.swift */,
+				53E8BA5729708E2D00CB0272 /* RegisterView.swift */,
 				D12BF413296E10F60063EB93 /* Assets.xcassets */,
 				D12BF415296E10F60063EB93 /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53E8BA5829708E2D00CB0272 /* RegisterView.swift in Sources */,
 				53E8BA1A296E115C00CB0272 /* LoginView.swift in Sources */,
 				D12BF410296E10F30063EB93 /* AgendaSwiftUIApp.swift in Sources */,
 			);
