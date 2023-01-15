@@ -14,14 +14,10 @@ struct RegisterView: View {
     var body: some View {
         
         ZStack {
-            Color.gray
-                .ignoresSafeArea()
+            BackgroundColorView()
             
             VStack(spacing: 20) {
-                Text("Register")
-                    .foregroundColor(.white)
-                    .font(.system(size: 30, weight: .bold))
-                    .padding(.top, 20)
+                TitleView(title: "Register")
                 
                 TextField("Email", text: $email)
                     .frame(height: 44)
@@ -39,14 +35,11 @@ struct RegisterView: View {
                 
                 Spacer()
                 
-                Image("kingsleague")
-                    .resizable()
-                    .frame(width: 130, height: 130)
-                    .padding(.bottom, 30)
+                KingsLeagueImageView()
                 
                 
                 Button {
-                    // TODO: - Login Action
+                    // TODO: - Register Action
                 } label: {
                     Text("Register")
                         .foregroundColor(.white)
@@ -57,8 +50,12 @@ struct RegisterView: View {
                         .padding(.horizontal, 21)
                 }
                 
+                
             }
         }
+        // Estas dos lineas sirven para esconder el nav bar de arriba en caso de que quisieseis hacerlo
+        //.navigationBarBackButtonHidden(true)
+        //.navigationTitle(Text(""))
     }
 }
 
