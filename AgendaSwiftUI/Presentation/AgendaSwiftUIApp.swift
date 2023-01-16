@@ -11,7 +11,7 @@ import SwiftUI
 struct AgendaSwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            RegisterView()
         }
     }
 }

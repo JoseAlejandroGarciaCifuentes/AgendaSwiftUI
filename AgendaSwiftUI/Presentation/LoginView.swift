@@ -15,7 +15,7 @@ struct LoginView: View {
     @State private var pass: String = ""
     @State private var shouldShowRepeatPass = false
     
-    @State var shouldShowRegister: Bool = false
+    @State private var shouldShowRegister: Bool = false
     
     // MARK: - Body
     
@@ -54,7 +54,7 @@ struct LoginView: View {
                 .cornerRadius(5)
                 .padding(.horizontal, 21)
             
-            TextField("Password", text: $pass)
+            SecureField("Password", text: $pass)
                 .frame(height: 44)
                 .padding(.horizontal, 10)
                 .background(Color.white)

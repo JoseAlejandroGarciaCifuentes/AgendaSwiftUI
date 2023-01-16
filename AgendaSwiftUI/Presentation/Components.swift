@@ -14,7 +14,7 @@ import SwiftUI
 
 struct BackgroundColorView: View {
     var body: some View {
-        Color.cyan
+        Color.gray
             .ignoresSafeArea()
     }
 }

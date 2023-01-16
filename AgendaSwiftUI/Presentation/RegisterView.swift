@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @State var email: String = ""
-    @State var pass: String = ""
+    
+    // MARK: - Private Properties
+    
+    @State private var email: String = ""
+    @State private var pass: String = ""
+    
+    // MARK: - Body
     
     var body: some View {
         
@@ -26,7 +31,7 @@ struct RegisterView: View {
                     .cornerRadius(5)
                     .padding(.horizontal, 21)
                 
-                TextField("Password", text: $pass)
+                SecureField("Password", text: $pass)
                     .frame(height: 44)
                     .padding(.horizontal, 10)
                     .background(Color.white)
@@ -40,6 +45,7 @@ struct RegisterView: View {
                 
                 Button {
                     // TODO: - Register Action
+                    register(email: email, pass: pass)
                 } label: {
                     Text("Register")
                         .foregroundColor(.white)
@@ -57,7 +63,35 @@ struct RegisterView: View {
         //.navigationBarBackButtonHidden(true)
         //.navigationTitle(Text(""))
     }
+    
+    // MARK: - Private Methods
+    
+    // Llamada a la petición de NetworkHelper que pronto pasaremos a viewModel
+    private func register(email: String, pass: String) {
+        
+        //baseUrl + endpoint
+        let url = "https://superapi.netlify.app/api/register"
+        
+        //params
+        let dictionary: [String: Any] = [
+            "user" : email,
+            "pass" : pass
+        ]
+        
+        // petición
+        NetworkHelper.shared.requestProvider(url: url, params: dictionary) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let data = data, let response = response as? HTTPURLResponse {
+                print(response.statusCode)
+                print(String(bytes: data, encoding: .utf8))
+            }
+        }
+    }
 }
+
+
+// MARK: - Previews
 
 struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
