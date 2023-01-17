@@ -14,6 +14,9 @@ struct RegisterView: View {
     @State private var email: String = ""
     @State private var pass: String = ""
     
+    // Variable que utilizaremos para ir hacia atrás en la navegación
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
     // MARK: - Body
     
     var body: some View {
@@ -44,7 +47,6 @@ struct RegisterView: View {
                 
                 
                 Button {
-                    // TODO: - Register Action
                     register(email: email, pass: pass)
                 } label: {
                     Text("Register")
@@ -81,12 +83,24 @@ struct RegisterView: View {
         // petición
         NetworkHelper.shared.requestProvider(url: url, params: dictionary) { data, response, error in
             if let error = error {
-                print(error.localizedDescription)
+                onError(error: error.localizedDescription)
             } else if let data = data, let response = response as? HTTPURLResponse {
-                print(response.statusCode)
-                print(String(bytes: data, encoding: .utf8))
+                if response.statusCode == 200 { // esto daria ok
+                    onSuccess()
+                } else { // esto daria error
+                    onError(error: error?.localizedDescription ?? "Request Error")
+                }
             }
         }
+    }
+    
+    func onSuccess() {
+        //navegacion hacia atrás
+        mode.wrappedValue.dismiss()
+    }
+    
+    func onError(error: String) {
+        print(error)
     }
 }
 

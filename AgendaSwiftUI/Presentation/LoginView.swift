@@ -13,7 +13,6 @@ struct LoginView: View {
     
     @State private var email: String = ""
     @State private var pass: String = ""
-    @State private var shouldShowRepeatPass = false
     
     @State private var shouldShowRegister: Bool = false
     
@@ -37,6 +36,22 @@ struct LoginView: View {
                     Spacer()
                     
                     loginButton(title: "Login")
+                    
+                    HStack {
+                        Text("Already got an account?")
+                            .foregroundColor(.black)
+                            .font(.system(size: 17))
+                        
+                        Spacer()
+                        
+                        Button {
+                            shouldShowRegister = true
+                        } label: {
+                            Text("Register")
+                                .font(.system(size: 17))
+                        }
+                    }
+                    .padding(21)
                 }
             }
         }
@@ -81,7 +96,7 @@ extension LoginView {
     
     var loginButton: some View {
         Button {
-            shouldShowRegister = true
+            // TODO: - Login Request
         } label: {
             Text("Login")
                 .foregroundColor(.white)
