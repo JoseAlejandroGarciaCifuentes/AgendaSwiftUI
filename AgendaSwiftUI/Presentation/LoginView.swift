@@ -38,7 +38,7 @@ struct LoginView: View {
                     loginButton(title: "Login")
                     
                     HStack {
-                        Text("Already got an account?")
+                        Text("Haven't got an account yet?")
                             .foregroundColor(.black)
                             .font(.system(size: 17))
                         
