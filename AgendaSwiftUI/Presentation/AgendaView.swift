@@ -11,6 +11,25 @@ import SwiftUI
 struct EventResponseModel: Decodable {
     let name: String?
     let date: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case date
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        if let date = try? values.decodeIfPresent(Double.self, forKey: .date) {
+            self.date = Int(date)
+        } else if let date = try? values.decodeIfPresent(String.self, forKey: .date) {
+            self.date = Int(date)
+        } else {
+            self.date = try values.decodeIfPresent(Int.self, forKey: .date)
+        }
+        
+        self.name = try values.decodeIfPresent(String.self, forKey: .name)
+    }
 }
 
 // Modelo de vista que utilizaremos para mostrar los datos en la view
@@ -78,7 +97,7 @@ struct AgendaView: View {
             
             // Recogemos únicamente los que no son nil y además lo convertimos a modelo de vista
             self.events = eventsNotFiltered.compactMap({ eventNotFiltered in
-                // Comprobamos que la fecha no sea nil, en caso de serlo devolvera un nil por lo que no se guardarñá
+                // Comprobamos que la fecha no sea nil, en caso de serlo devolvera un nil por lo que no se guardará
                 guard let date = eventNotFiltered?.date else { return nil }
                 // se crea el objecto de vista con el nombre del evento que en caso de que venga nulo le pondremos un nombre por defecto y la fecha que hemos comprobado que NO será nil
                 return EventPresentationModel(name: eventNotFiltered?.name ?? "Empty Name", date: date)
