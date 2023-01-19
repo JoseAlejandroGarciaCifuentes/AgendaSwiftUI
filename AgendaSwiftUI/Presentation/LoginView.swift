@@ -15,6 +15,7 @@ struct LoginView: View {
     @State private var pass: String = ""
     
     @State private var shouldShowRegister: Bool = false
+    @State private var shouldShowAgenda: Bool = false
     
     // MARK: - Body
     
@@ -50,6 +51,11 @@ struct LoginView: View {
                             Text("Register")
                                 .font(.system(size: 17))
                         }
+                        .background(
+                            NavigationLink(destination: RegisterView(), isActive: $shouldShowRegister) {
+                                EmptyView()
+                            }
+                        )
                     }
                     .padding(21)
                 }
@@ -78,6 +84,42 @@ struct LoginView: View {
             
         }
     }
+   
+    
+    // Llamada a la petición de NetworkHelper que pronto pasaremos a viewModel
+    func login(email: String, pass: String) {
+        
+        //baseUrl + endpoint
+        let url = "https://superapi.netlify.app/api/login"
+        
+        //params
+        let dictionary: [String: Any] = [
+            "user" : email,
+            "pass" : pass
+        ]
+        
+        // petición
+        NetworkHelper.shared.requestProvider(url: url, params: dictionary) { data, response, error in
+            if let error = error {
+                onError(error: error.localizedDescription)
+            } else if let data = data, let response = response as? HTTPURLResponse {
+                if response.statusCode == 200 { // esto daria ok
+                    onSuccess()
+                } else { // esto daria error
+                    onError(error: error?.localizedDescription ?? "Request Error")
+                }
+            }
+        }
+    }
+    
+    func onSuccess() {
+        // Navegación hacia la vista de Agenda
+        shouldShowAgenda = true
+    }
+    
+    func onError(error: String) {
+        print(error)
+    }
 }
 
 
@@ -94,9 +136,11 @@ struct ContentView_Previews: PreviewProvider {
 
 extension LoginView {
     
+    // ESTE NO SE ESTA UTILIZANDO
     var loginButton: some View {
         Button {
             // TODO: - Login Request
+            login(email: email, pass: pass)
         } label: {
             Text("Login")
                 .foregroundColor(.white)
@@ -107,17 +151,18 @@ extension LoginView {
                 .padding(.horizontal, 21)
 
         }
-        .background(
-            NavigationLink(destination: RegisterView(), isActive: $shouldShowRegister) {
-                EmptyView()
-            }
-        )
+//        .background(
+//            NavigationLink(destination: RegisterView(), isActive: $shouldShowRegister) {
+//                EmptyView()
+//            }
+//        )
     }
     
     // Esta es otra manera de extraer las vistas, funciona exactamente igual que la var << loginButton: some View >>, no se esta llamando/utilizando pero la dejo aquí para que sepais ambas maneras.
     func loginButton(title: String) -> some View {
         Button {
-            shouldShowRegister = true
+            // Call login action
+            login(email: email, pass: pass)
         } label: {
             Text(title)
                 .foregroundColor(.white)
@@ -129,7 +174,7 @@ extension LoginView {
 
         }
         .background(
-            NavigationLink(destination: RegisterView(), isActive: $shouldShowRegister) {
+            NavigationLink(destination: AgendaView(), isActive: $shouldShowAgenda) {
                 EmptyView()
             }
         )

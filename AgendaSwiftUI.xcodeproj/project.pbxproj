@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		53B5A58F2974946A009D796E /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B5A58E2974946A009D796E /* Components.swift */; };
 		53B5A5922975D21D009D796E /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B5A5912975D21D009D796E /* NetworkHelper.swift */; };
+		53B5A5952979C509009D796E /* AgendaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B5A5942979C509009D796E /* AgendaView.swift */; };
 		53E8BA1A296E115C00CB0272 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E8BA19296E115C00CB0272 /* LoginView.swift */; };
 		53E8BA5829708E2D00CB0272 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E8BA5729708E2D00CB0272 /* RegisterView.swift */; };
 		D12BF410296E10F30063EB93 /* AgendaSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12BF40F296E10F30063EB93 /* AgendaSwiftUIApp.swift */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		53B5A58E2974946A009D796E /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		53B5A5912975D21D009D796E /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
+		53B5A5942979C509009D796E /* AgendaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaView.swift; sourceTree = "<group>"; };
 		53E8BA19296E115C00CB0272 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		53E8BA5729708E2D00CB0272 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		D12BF40C296E10F30063EB93 /* AgendaSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgendaSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +55,7 @@
 				53E8BA19296E115C00CB0272 /* LoginView.swift */,
 				53E8BA5729708E2D00CB0272 /* RegisterView.swift */,
 				53B5A58E2974946A009D796E /* Components.swift */,
+				53B5A5942979C509009D796E /* AgendaView.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 			files = (
 				53E8BA5829708E2D00CB0272 /* RegisterView.swift in Sources */,
 				53E8BA1A296E115C00CB0272 /* LoginView.swift in Sources */,
+				53B5A5952979C509009D796E /* AgendaView.swift in Sources */,
 				53B5A5922975D21D009D796E /* NetworkHelper.swift in Sources */,
 				53B5A58F2974946A009D796E /* Components.swift in Sources */,
 				D12BF410296E10F30063EB93 /* AgendaSwiftUIApp.swift in Sources */,
