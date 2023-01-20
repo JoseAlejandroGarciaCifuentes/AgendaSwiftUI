@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// Modelo que utilizaremos para convertir tras recogerlo de la petición
 struct EventResponseModel: Decodable {
     let name: String?
     let date: Int?
@@ -20,10 +19,12 @@ struct EventResponseModel: Decodable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
-        if let date = try? values.decodeIfPresent(Double.self, forKey: .date) {
-            self.date = Int(date)
+        if let date = try? values.decodeIfPresent(Int.self, forKey: .date) {
+            self.date = date
         } else if let date = try? values.decodeIfPresent(String.self, forKey: .date) {
             self.date = Int(date)
+        } else if let _ = try? values.decodeIfPresent(Float.self, forKey: .date) {
+            self.date = nil
         } else {
             self.date = try values.decodeIfPresent(Int.self, forKey: .date)
         }
@@ -32,8 +33,10 @@ struct EventResponseModel: Decodable {
     }
 }
 
-// Modelo de vista que utilizaremos para mostrar los datos en la view
-struct EventPresentationModel {
+
+struct EventPresentationModel: Identifiable {
+    // el id se genera cada vez que se instancia/crea el modelo, es necesario para el ForEach del LazyVStack ya que SwiftUI así lo requiere
+    let id = UUID()
     let name: String
     let date: Int
 }
@@ -42,26 +45,62 @@ struct EventPresentationModel {
 struct AgendaView: View {
     @State var dateSelected: Date = Date()
     @State var events: [EventPresentationModel] = []
+    @State var shouldShowNewEvent = false
     
     var body: some View {
         ZStack {
             Color.gray.ignoresSafeArea()
             
-            VStack(spacing: 20) {
-                Text("Agenda")
-                    .foregroundColor(.white)
-                    .font(.system(size: 30, weight: .bold))
-                    .padding(.top, 20)
+            VStack(spacing: 0) {
+                VStack(spacing: 20) {
+                    Text("Agenda")
+                        .foregroundColor(.white)
+                        .font(.system(size: 30, weight: .bold))
+                        .padding(.top, 20)
+                    
+                    // Picker de fecha, tiene una var @State "dateSelected" donde se guardará el valor al pulsar en el calendario
+                    DatePicker("", selection: $dateSelected, displayedComponents: .date)
+                        .datePickerStyle(.graphical)
+                        .background(Color.white)
+                        .cornerRadius(5)
+                        .padding(.horizontal, 10)
+                }
+                .padding(.bottom, 5)
                 
-                // Picker de fecha, tiene una var @State "dateSelected" donde se guardará el valor al pulsar en el calendario
-                DatePicker("", selection: $dateSelected, displayedComponents: .date)
-                    .datePickerStyle(.graphical)
-                    .background(Color.white)
-                    .cornerRadius(5)
-                    .padding(.horizontal, 10)
+                ScrollView {
+                    LazyVStack(spacing: 1) {
+                        ForEach(events) { event in
+                            HStack {
+                                Text(event.name)
+                                Spacer()
+                                Text("\(event.date)")
+                            }
+                            .padding(.horizontal, 5)
+                            .frame(height: 40)
+                            .background(Color.white)
+                            .padding(.horizontal, 10)
+                        }
+                    }
+                }
+                .padding(.bottom, 5)
                 
-                Spacer()
+                
             }
+        }
+        // Extension de View que se utiliza para presentar vistas modales
+        .sheet(isPresented: $shouldShowNewEvent, content: {
+            NewEventView()
+        })
+        // Boton de la navbar que mostrará la vista de New Event al pulsarse
+        .toolbar {
+            Button {
+                shouldShowNewEvent = true
+            } label: {
+                Image(systemName: "plus")
+                    .font(.system(size: 15))
+                
+            }
+
         }
         // Ciclo de vida de la vista, al crearse se hace la petición de eventos
         .onAppear {
