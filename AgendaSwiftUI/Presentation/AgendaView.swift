@@ -89,7 +89,10 @@ struct AgendaView: View {
         }
         // Extension de View que se utiliza para presentar vistas modales
         .sheet(isPresented: $shouldShowNewEvent, content: {
-            NewEventView()
+            NewEventView(shouldShowNewEvent: $shouldShowNewEvent) {
+                // Se llamará a getEvents cuando se pulse el botón de crear evento en la pantalla de NewEvents
+                getEvents()
+            }
         })
         // Boton de la navbar que mostrará la vista de New Event al pulsarse
         .toolbar {
@@ -100,11 +103,14 @@ struct AgendaView: View {
                     .font(.system(size: 15))
                 
             }
-
         }
         // Ciclo de vida de la vista, al crearse se hace la petición de eventos
         .onAppear {
             getEvents()
+        }
+        // Este bloque de código se llamará cada vez que cambiemos la fecha del picker de fecha
+        .onChange(of: dateSelected) { _ in
+            let newDate = Int(dateSelected.timeIntervalSince1970)
         }
     }
     
