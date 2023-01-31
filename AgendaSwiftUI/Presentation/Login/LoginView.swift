@@ -18,6 +18,20 @@ struct LoginView: View {
     @State private var pass: String = ""
     @State private var shouldShowRegister: Bool = false
     
+    @State private var isOlderThan14: Bool = true
+    
+    // Computed property
+    var title: String {
+        
+        // Es lo mismo que la condicion ternaria de abajo
+        //        if isOlderThan14 {
+        //            return "Older"
+        //        } else {
+        //            return "Younger"
+        //        }
+        
+        return isOlderThan14 ? "Older" : "Younger"
+    }
     
     // MARK: - Body
     
@@ -28,7 +42,7 @@ struct LoginView: View {
                 BackgroundColorView()
                 
                 VStack {
-                    TitleView(title: "Login")
+                    TitleView(title: title)
                     
                     textFields()
                     
@@ -44,7 +58,7 @@ struct LoginView: View {
                     HStack {
                         Text("Haven't got an account yet?")
                             .foregroundColor(.black)
-                            .font(.system(size: 17))
+                            .font(.system(size: isOlderThan14 ? 17 : 14)) // Inline condition / Ternario
                         
                         Spacer()
                         
@@ -75,6 +89,12 @@ struct LoginView: View {
         }
     }
     
+    @ViewBuilder var textFieldsYounger: some View {
+        if isOlderThan14 {
+            Text("")
+        }
+    }
+    
     
     // MARK: - Accessory Views
     
@@ -83,19 +103,18 @@ struct LoginView: View {
         VStack(spacing: 20) {
             TextField("Email", text: $email)
                 .textInputAutocapitalization(.never) // esto quita mayuscula inicial en el TextField
-                .frame(height: 44)
-                .padding(.horizontal, 10)
-                .background(Color.white)
-                .cornerRadius(5)
-                .padding(.horizontal, 21)
+                .customDesign()
+                
             
             SecureField("Password", text: $pass)
-                .frame(height: 44)
-                .padding(.horizontal, 10)
-                .background(Color.white)
-                .cornerRadius(5)
-                .padding(.horizontal, 21)
+                .font(.system(size: 13))
+                .customDesign()
             
+            if !isOlderThan14{
+                TextField("Name for kids", text: $pass)
+                    .font(.system(size: 13))
+                    .customDesign()
+            }
         }
     }
     
@@ -113,7 +132,7 @@ struct LoginView: View {
                 .background(Color.black)
                 .cornerRadius(5)
                 .padding(.horizontal, 21)
-
+            
         }
         .background(
             NavigationLink(destination: AgendaView(), isActive: $viewModel.shouldShowAgenda) {
@@ -121,7 +140,7 @@ struct LoginView: View {
             }
         )
     }
-   
+    
 }
 
 
